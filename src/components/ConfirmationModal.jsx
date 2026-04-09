@@ -1,0 +1,61 @@
+import { Icon } from "@iconify/react"
+
+export const ConfirmationModal = ({ 
+    title,
+    message,
+    confirmText = "Confirm",
+    cancelText = "Cancel",
+    onCancel,
+    onConfirm,
+    variant = "danger", // "danger" | "neutral"
+ }) => {
+    const danger = variant === "danger";
+
+  return (
+    <section
+        className="
+        w-full max-w-sm mx-auto rounded-2xl border border-(--line) bg-(--surface-elevated) p-5 shadow-sm
+        flex flex-col items-center space-y-4"
+    >
+        <div
+            className={`
+                rounded-full p-4 border-4
+                ${danger
+                    ? "bg-rose-100 border-rose-200 text-rose-700 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-200"
+                    : "bg-(--surface-mid) border-(--line) text-(--text-muted)"
+                }`}
+            aria-hidden="true"
+        >
+            <Icon icon="si:warning-duotone" className="text-2xl"/>
+        </div>
+
+        <h1 className="text-xl font-bold text-(--text-main)">{title}</h1>
+
+        <p className="text-(--text-muted) text-sm text-center">
+            {message}
+        </p>
+
+        <div className="flex items-center gap-3">
+            <button
+                onClick={onCancel}
+                className="
+                px-5 py-2 rounded-lg text-sm font-semibold
+                bg-(--surface-mid) dark:bg-(--surface) hover:bg-(--surface-muted) transition"
+            >
+                {cancelText}
+            </button>
+            <button
+                onClick={onConfirm}
+                className={`
+                px-5 py-2 rounded-lg text-sm font-semibold transition
+                ${danger
+                    ? "bg-rose-600 text-white hover:bg-rose-700 dark:bg-rose-950/60 dark:text-rose-200 dark:hover:bg-rose-900/70"
+                    : "bg-(--accent) text-[#2f2710] hover:bg-(--accent-strong)"
+                }`}
+            >
+                {confirmText}
+            </button>
+        </div>
+    </section>
+  )
+}

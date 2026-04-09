@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+:root {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  --accent: #f0c040;
+  --accent-strong: #d5a623;
+  --accent-soft: #fdf1cc;
+  --surface: #fffef8;
+  --surface-elevated: #ffffff;
+  --surface-mid: #fbf6e8;
+  --surface-muted: #f4efe2;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --line: #e9ddbd;
+}
+
+.dark {
+  --accent: #f0c040;
+  --accent-strong: #ffd976;
+  --accent-soft: #3d3216;
+  --surface: #151515;
+  --surface-elevated: #1f1f1f;
+  --surface-mid: #262626;
+  --surface-muted: #2e2e2e;
+  --text-main: #f8f8f8;
+  --text-muted: #b4b4b4;
+  --line: #3e3a31;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  background: radial-gradient(circle at top, #fff8e6 0%, var(--surface) 40%);
+  color: var(--text-main);
+}
+
+.dark body {
+  background: radial-gradient(circle at top, #2e281d 0%, var(--surface) 45%);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar for horizontal sections */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* makes it blend into background */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.5); /* neutral gray */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100, 100, 100, 0.8);
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 100, 100, 0.5) transparent;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(160, 160, 160, 0.4);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(160, 160, 160, 0.7);
+}
