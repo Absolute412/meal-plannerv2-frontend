@@ -39,11 +39,7 @@ export const Profile = () => {
     const payload = {};
     if (username.trim() !== initialUsername.trim()) payload.username = username.trim();
     if (email.trim() !== initialEmail.trim()) payload.email = email.trim();
-    
-    if (Object.keys(payload).length === 0) {
-      toast.info("No changes made");
-      return;
-    }
+    if (!payload.email && !payload.username) return;
 
     try {
       setSavingProfile(true);
