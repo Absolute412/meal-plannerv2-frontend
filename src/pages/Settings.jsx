@@ -1,12 +1,12 @@
-import { useTheme } from "../hooks/useTheme";
+﻿import { useTheme } from "../hooks/useTheme";
 import { useSettings } from "../hooks/useSettings";
-import { useState } from "react";
+// import { useState } from "react";
 
 export const Settings = () => {
   const { isDark, setIsDark } = useTheme();
   const { weekStart, setWeekStart, defaultView, setDefaultView } = useSettings();
   
-  const [notifications, setNotifications] = useState(true);
+  // const [notifications, setNotifications] = useState(true);
 
   return (
     <div className="flex flex-col space-y-6">
@@ -80,15 +80,18 @@ export const Settings = () => {
 
       <section className="rounded-3xl border border-(--line) bg-(--surface-elevated) p-4 shadow-sm sm:p-6">
         <h2 className="text-lg font-semibold text-(--text-main)">Notifications</h2>
-        <p className="text-sm text-(--text-muted)">Control reminders and updates.</p>
+        <p className="text-sm text-(--text-muted)">Coming in V2.</p>
 
         <div className="mt-4">
           <div className="flex items-center justify-between rounded-2xl border border-(--line) bg-(--surface) px-4 py-3">
             <div>
               <p className="text-sm font-semibold text-(--text-main)">Meal reminders</p>
-              <p className="text-xs text-(--text-muted)">Get notified about upcoming meals.</p>
+              <p className="text-xs text-(--text-muted)">Reminders aren't available yet. We'll enable this in V2.</p>
             </div>
-            <label className="relative inline-flex items-center">
+            <span className="rounded-full border border-(--line) bg-(--surface-elevated) px-3 py-1 text-xs text-(--text-muted)">
+              Coming soon
+            </span>
+            {/* <label className="relative inline-flex items-center">
               <input
                 type="checkbox"
                 className="sr-only peer"
@@ -98,7 +101,7 @@ export const Settings = () => {
               />
               <div className="h-6 w-12 rounded-full bg-gray-300 transition-colors duration-300 peer-checked:bg-(--accent) dark:bg-gray-600"></div>
               <div className="absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-300 peer-checked:translate-x-6"></div>
-            </label>
+            </label> */}
           </div>
         </div>
       </section>
