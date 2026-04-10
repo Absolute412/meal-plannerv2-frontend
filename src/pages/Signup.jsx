@@ -12,6 +12,7 @@ export const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const passwordChecks = getPasswordChecks(password);
   const passwordStrength = getPasswordStrength(password);
@@ -19,6 +20,8 @@ export const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (submitting) return;
 
     if (!isPasswordValid) {
       toast.error("Password does not meet all required rules.");
@@ -31,10 +34,27 @@ export const Signup = () => {
     }
 
     try {
-      await signup(email.trim(), username.trim(), password)
+      const cleanEmail = email.trim();
+      const cleanUsername = username.trim();
+
+      if (!cleanEmail || !cleanUsername || !password.trim()) {
+        toast.error("Fields cannot be empty");
+        return;
+      }
+
+      setSubmitting(true);
+
+      await signup(cleanEmail, cleanUsername, password);
       toast.success("Signup successful. Please log in.");
-      navigate("/login", { replace: true });
-    } catch (err) {toast.error(err.response?.data?.detail || "Signup failed");}
+      setTimeout(() => {
+        navigate("/login", { replace: true });
+      }, 800);
+    } catch (err) {
+      const message = err.response?.data?.detail || err.response?.data || "Signup failed";
+      toast.error(typeof message === "string" ? message : "Signup failed");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -100,9 +120,12 @@ export const Signup = () => {
 
           <button
             type="submit"
-            className="w-full rounded-xl bg-(--accent) px-4 py-2.5 text-sm font-semibold text-[#2f2710] transition duration-200 hover:-translate-y-0.5 hover:bg-(--accent-strong)"
+            disabled={submitting}
+            className="w-full rounded-xl bg-(--accent) px-4 py-2.5 text-sm font-semibold 
+            text-[#2f2710] transition duration-200 hover:-translate-y-0.5 
+            hover:bg-(--accent-strong) disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Signup
+            {submitting ? "Signing up..." : "Signup"}
           </button>
 
           <p className="text-sm text-(--text-muted)">

@@ -18,12 +18,24 @@ export const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (submitting) return;
     
         try {
+            const cleanIdentifier = identifier.trim();
+
+            if (!cleanIdentifier || !password.trim()) {
+                toast.error("Fields cannot be empty");
+                return;
+            }
+
             setSubmitting(true);
-            await login(identifier.trim(), password);
+
+            await login(cleanIdentifier, password);
             toast.success("Login successful");
-            navigate(defaultRoute, { replace: true });
+            setTimeout(() => {
+                navigate(defaultRoute, { replace: true });
+            }, 800);
         } catch (err) {
             const message = err.response?.data?.detail || err.response?.data || "Login failed";
             toast.error(typeof message === "string" ? message : "Login failed");
@@ -67,10 +79,12 @@ export const Login = () => {
                     "
                 />
                 <button 
+                    type="submit"
                     disabled={submitting}
                     className="
-                        w-full rounded-xl bg-(--accent) px-4 py-2.5 text-sm font-semibold 
-                        text-[#2f2710] transition duration-200 hover:-translate-y-0.5 hover:bg-(--accent-strong)"
+                    w-full rounded-xl bg-(--accent) px-4 py-2.5 text-sm font-semibold 
+                    text-[#2f2710] transition duration-200 hover:-translate-y-0.5 
+                    hover:bg-(--accent-strong) disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {submitting ? "Logging in..." : "Login"}
                 </button>
