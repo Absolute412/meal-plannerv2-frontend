@@ -58,7 +58,7 @@ export const ConfirmationModal = ({
                 {cancelText}
             </button>
             <button
-                onClick={onConfirm}
+                onClick={handleConfirm}
                 disabled={loading}
                 className={`
                 px-5 py-2 rounded-lg text-sm font-semibold transition
