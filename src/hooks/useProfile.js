@@ -1,10 +1,14 @@
-import axios from "../api/axiosInstance"
+﻿import axios from "../api/axiosInstance"
 import { useAuth } from "./useAuth";
 
 export const useProfile = () => {
     const { user, updateUser } = useAuth();
 
     const updateProfile = async (payload) => {
+        if (!payload || typeof payload !== "object") {
+            throw new Error("Invalid profile payload");
+        }
+        
         const res = await axios.put("/auth/me/profile", payload);
         updateUser(res.data);
         return res.data;

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+﻿import { useEffect, useMemo, useState } from "react"
 import { toast } from "react-toastify"
 import { useProfile } from "../hooks/useProfile"
 
@@ -39,6 +39,11 @@ export const Profile = () => {
     const payload = {};
     if (username.trim() !== initialUsername.trim()) payload.username = username.trim();
     if (email.trim() !== initialEmail.trim()) payload.email = email.trim();
+    
+    if (Object.keys(payload).length === 0) {
+      toast.info("No changes made");
+      return;
+    }
 
     try {
       setSavingProfile(true);
