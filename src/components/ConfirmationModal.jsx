@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react"
+import { useState } from "react";
 
 export const ConfirmationModal = ({ 
     title,
@@ -10,6 +11,18 @@ export const ConfirmationModal = ({
     variant = "danger", // "danger" | "neutral"
  }) => {
     const danger = variant === "danger";
+    const [loading, setLoading] = useState(false);
+
+    const handleConfirm = async () => {
+        if (loading) return;    // prevents spam clicks
+
+        try {
+            setLoading(true);
+            await onConfirm();
+        } finally {
+            setLoading(false);
+        }
+    };
 
   return (
     <section
@@ -46,14 +59,16 @@ export const ConfirmationModal = ({
             </button>
             <button
                 onClick={onConfirm}
+                disabled={loading}
                 className={`
                 px-5 py-2 rounded-lg text-sm font-semibold transition
+                disabled:opacity-50 disabled:cursor-not-allowed
                 ${danger
                     ? "bg-rose-600 text-white hover:bg-rose-700 dark:bg-rose-950/60 dark:text-rose-200 dark:hover:bg-rose-900/70"
                     : "bg-(--accent) text-[#2f2710] hover:bg-(--accent-strong)"
                 }`}
             >
-                {confirmText}
+                {loading ? "Processing..." : confirmText}
             </button>
         </div>
     </section>
